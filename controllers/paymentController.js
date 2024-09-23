@@ -2,7 +2,9 @@ import Payment from '../models/paymentModel.js';
 
 export const createPayment = async (req, res) => {
     try {
-        const { payment_id, amount, payment_type, customer } = req.body;
+        const { payment_id, amount, payment_type
+            //  customer
+             } = req.body;
 
         const paymentExists = await Payment.findOne({ payment_id });
         if (paymentExists) {

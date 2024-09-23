@@ -1,28 +1,30 @@
-import Product from "../models/productModel.js";
+import product from "../models/productModel.js";
 
 export const createProduct = async (req, res) => {
   try {
-    const { p_id, p_name, p_price, p_model, category } = req.body;
+    const { p_id, p_name, p_price, p_model,
+      //category
+     } = req.body;
+    console.log(p_id, p_name, p_price, p_model);
 
-
-    const productExists = await Product.findOne({ p_id });
+    const productExists = await product.findOne({ p_id });
     if (productExists) {
-      return res.status(400).json({ message: "Product already exists" });
+      return res.status(400).json({ message: "product already exists" });
     }
 
-    const productData = new Product({
+    const productData = new product({
       p_id,
       p_name,
       p_price,
       p_model,
-      category
+      // category
     });
     await productData.save();
 
     return res
       .status(201)
       .json({
-        message: "Product saved successfully",
+        message: "product saved successfully",
         success: true,
         data: productData,
       });
@@ -33,7 +35,7 @@ export const createProduct = async (req, res) => {
 
 export const getProduct = async (req, res) => {
   try {
-    const getProducts = await Product.find().populate("category");
+    const getProducts = await product.find().populate("category");
     return res
       .status(200)
       .json({
@@ -49,11 +51,11 @@ export const getProduct = async (req, res) => {
 export const getProductById = async (req, res) => {
   try {
     const { productId } = req.params;
-    const getProduct = await Product.findById(productId).populate("category");
+    const getProduct = await product.findById(productId).populate("category");
     return res
       .status(200)
       .json({
-        message: "Product data fetched successfully",
+        message: "product data fetched successfully",
         success: true,
         data: getProduct,
       });
@@ -65,11 +67,11 @@ export const getProductById = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   try {
     const { productId } = req.params;
-    const delProduct = await Product.findByIdAndDelete(productId);
+    const delProduct = await product.findByIdAndDelete(productId);
     return res
       .status(200)
       .json({
-        message: "Product deleted successfully",
+        message: "product deleted successfully",
         success: true,
         data: delProduct,
       });

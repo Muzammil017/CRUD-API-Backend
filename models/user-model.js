@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    userName: {
+    username: {
         type: String,
         required: true,
         unique: true
@@ -19,6 +19,16 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: [8,"password must be at least 8 characters"],
     },
+    image:{
+        type: String,
+    },
+     //role based user field
+     role: {
+        type: String,
+        enum: ["customer", "admin", "superAdmin"],
+        default: "customer",
+    }
+
 },{
     timestamps: true,
 });

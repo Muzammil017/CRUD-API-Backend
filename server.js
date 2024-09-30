@@ -11,6 +11,8 @@ import productRoutes from "./routes/productRoutes.js";
 // import customerRoutes from './routes/customerRoutes.js';
 import paymentRoutes from "./routes/payment-routes.js";
 import cartRoutes from "./routes/cartRoutes.js";
+import path  from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
@@ -19,6 +21,10 @@ const app = express();
 app.use(cors());
 //for json data
 app.use(express.json());
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use('/upload', express.static(path.join(__dirname, 'upload')));
+
 
 // Routes
 
@@ -30,6 +36,7 @@ app.use("/", productRoutes);
 app.use("/", categoryRoutes);
 app.use("/", paymentRoutes);
 app.use("/", cartRoutes);
+
 
 const port = process.env.PORT || 3000;
 connectDB();
